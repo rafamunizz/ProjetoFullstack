@@ -1,72 +1,91 @@
-.container-lista {
-    background-color: #1a1a1a;
-    min-height: 100vh;
-    padding: 20px;
-    font-family: Arial, sans-serif;
+/* Estilo geral da página */
+body {
+    background-color: #1F1A38; /* Fundo roxo escuro */
+    color: #ffffff; /* Cor do texto principal */
+    font-family: 'Roboto', Arial, sans-serif; /* Fonte profissional e limpa */
+    margin: 0;
+    padding: 0;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding: 0 20px;
-}
-
-header h2 {
-    color: #fff;
-}
-
-.btn-logout {
-    background-color: #ff4d4d;
-    border: none;
+/* Barra de navegação (Navbar) */
+.navbar {
+    background-color: #ffffff !important; /* Força o fundo branco */
     padding: 10px 20px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.navbar-brand {
     font-weight: bold;
+    color: #1F1A38 !important; /* Cor da marca */
+    font-size: 1.5rem;
 }
 
-.btn-logout:hover {
-    background-color: #cc0000;
+.form-control {
+    border-radius: 20px 0 0 20px; /* Borda arredondada no input */
+    border: 1px solid #ced4da;
 }
 
-/* GRID DOS CARDS */
-.list-users {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsivo automático */
-    gap: 20px;
-    padding: 20px;
+.btn-outline-success {
+    border-radius: 0 20px 20px 0; /* Borda arredondada no botão */
+    color: #28a745;
+    border-color: #28a745;
+}
+.btn-outline-success:hover {
+    background-color: #28a745;
+    color: white;
 }
 
-.card {
-    background-color: #242424;
-    padding: 20px;
-    border-radius: 10px;
+/* Espaçamento do conteúdo principal */
+.content-padding {
+    padding: 40px 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: 700; /* Negrito */
+}
+
+/* Grade de vídeos */
+.videos-grid {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; /* Espaço entre os cards */
+    justify-content: flex-start; /* Alinha os cards à esquerda */
+}
+
+/* Card individual do vídeo */
+.video-card {
+    background-color: #0a0a0a; /* Fundo preto do card */
+    border-radius: 12px; /* Bordas arredondadas */
+    overflow: hidden; /* Garante que a imagem não saia da borda */
+    width: 300px; /* Largura fixa para os cards */
+    cursor: pointer; /* Mostra a mãozinha ao passar o mouse */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.video-card:hover {
+    transform: translateY(-5px); /* Efeito de levantar ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* Placeholder da miniatura do vídeo */
+.thumbnail {
+    background-color: #1a1a1a; /* Fundo cinza escuro para o placeholder */
+    height: 170px; /* Altura fixa */
+    display: flex;
+    justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    border: 1px solid #333;
+    color: #666;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
-.card p {
-    color: #ccc;
-    margin: 5px 0;
-}
-
-.card strong {
-    color: #fff;
-}
-
-.btn-trash {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.btn-trash:hover {
-    transform: scale(1.2);
+/* Título da aula dentro do card */
+.video-card p {
+    padding: 15px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1rem;
 }

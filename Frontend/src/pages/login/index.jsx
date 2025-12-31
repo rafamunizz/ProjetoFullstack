@@ -25,16 +25,13 @@ function Login() {
             })
 
             console.log('Login feito com sucesso:', data)
-
-            // Guarda o Token
             localStorage.setItem('token', data.token)
 
-            // Redireciona para a tela de lista
+
             navigate('/listar-usuarios') 
 
         } catch (error) {
             console.log(error)
-            // Mostra o erro exato se o backend mandar
             alert("Erro no login! Verifique se o nome e senha estão idênticos ao cadastro.")
         }
     }

@@ -9,7 +9,7 @@ function App() {
     const inputName = useRef()
     const inputSenha = useRef()
 
-    // Função para buscar usuários (só para garantir que a API tá on)
+
     async function getUsers(){
         try {
             const usersFromApi = await api.get('/Usuarios')
@@ -21,7 +21,7 @@ function App() {
     } 
 
     async function createUsers(){
-        // Validação simples antes de enviar
+       
         if(!inputName.current.value || !inputSenha.current.value) {
             alert("Preencha nome e senha!")
             return
@@ -69,7 +69,6 @@ function App() {
                     ref={inputSenha} 
                 />
                 
-                {/* Botão que chama a função de criar */}
                 <button type='button' onClick={createUsers}>Cadastrar</button>
                 
                 <Link to="/" className="btn-voltar" style={{marginTop: '10px', display: 'block', color: '#fff'}}>
