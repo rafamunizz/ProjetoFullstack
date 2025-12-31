@@ -120,6 +120,12 @@ app.delete('/Usuarios/:id', async (req, res) => {
     }
 })
 
+app.post('/login', (req, res) => {
+    const {name, senha} = req.body;
+    
+
+})
+
 if (!process.env.VERCEL) {
   app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`)
