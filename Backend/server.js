@@ -120,11 +120,49 @@ app.delete('/Usuarios/:id', async (req, res) => {
     }
 })
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
     const {name, senha} = req.body;
-    
 
-})
+    if(!name){
+        return res.status(422).json({message: "Usuário não existe"})
+    }
+
+    if(!senha){
+        return res.status(422).json({message: "Senha não existe"})
+    }
+
+ 
+        const user = await prisma.user.findFirst({
+            where : {
+                name:name
+            }
+        })
+
+        if(!user){
+            return res.status(404).json({ message: "Usuário não encontrado!" })
+        }
+
+        const checkpassoword =  await bcrypt.compare(senha, user.senha)
+
+        if(!checkpassoword){
+            return res.status(404).json({ message: "senha não encontrado!" })
+        }
+
+
+        try {
+            const token = jwt.sign(
+                {id: user.id},
+                process.env.SECRET,
+                {expiresIn: '1d'}
+            ) 
+
+        res.status(201).json({message:"Usuario encontardo com sucesso", token:token, user:{id:user.id, name:user.name}})
+
+        }catch(error){
+            console.log(error);
+            res.status(500).json({message: "Erro no servidor"})
+        }
+    })
 
 if (!process.env.VERCEL) {
   app.listen(port, () => {
