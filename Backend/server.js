@@ -120,12 +120,13 @@ app.delete('/Usuarios/:id', async (req, res) => {
     }
 })
 
-app.listen(port, () => {
-   console.log(`Servidor rodando na porta ${port}`)
-})
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Servidor rodando na porta ${port}`)
+  })
+}
 
-
-
+export default app;
 
 
 
