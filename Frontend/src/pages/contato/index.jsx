@@ -1,8 +1,7 @@
-import { useEffect, useState, useRef } from 'react'
+import { useState } from 'react'
 import './style.css'
 import api from '../../services/api'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 
 function TelaContato(){
@@ -14,7 +13,6 @@ function TelaContato(){
     const navigate = useNavigate()
 
     async function handleSubmit(event) {
-
         event.preventDefault()
         
         if(!nome || !email || !orcamento || !mensagem){
@@ -22,28 +20,38 @@ function TelaContato(){
             return
         }
     
-    
-    try {
+        try {
+            // 1. SALVA NO BANCO DE DADOS (Seu backup seguro)
+            await api.post('/contato', {
+                nome: nome,
+                email: email,
+                orcamento: orcamento,
+                mensagem: mensagem
+            })
 
-        const {data} = await api.post('/contato', {
-            nome: nome,
-            email: email,
-            orcamento: orcamento,
-            mensagem: mensagem
-        })
+            // 2. MONTA A MENSAGEM DO WHATSAPP
+            // Usamos encodeURIComponent para aceitar acentos e espaços no link
+            const textoZap = `Olá Rafa! Me chamo *${nome}*.\n\nMeu email é: ${email}\nOrçamento estimado: R$ ${orcamento}\n\n*Minha mensagem:* ${mensagem}`;
+            
+            const numeroRafa = '5511990008917'; // Seu número
+            const linkZap = `https://wa.me/${numeroRafa}?text=${encodeURIComponent(textoZap)}`;
 
-        console.log("Usuário enviados com sucesso !!!")
-        console.log(data)
+            // 3. ABRE O WHATSAPP (Em outra aba)
+            window.open(linkZap, '_blank');
 
-        navigate('/listar-usuarios')
+            // 4. MENSAGEM DE SUCESSO E REDIRECIONA
+            alert("Pedido salvo! Vamos finalizar a conversa no WhatsApp? 🚀")
+            navigate('/listar-usuarios') // Ou '/telainicial'
 
-    } catch(error){
-        console.log(error)
+        } catch(error){
+            console.log(error)
+            alert("Erro ao salvar no banco, mas pode me chamar no WhatsApp direto!")
+            
+            // Mesmo se der erro no banco, abre o Whats para garantir a venda
+            const textoZap = `Olá Rafa! Tentei contato pelo site. Me chamo ${nome}.`;
+            window.open(`https://wa.me/5511990008917?text=${encodeURIComponent(textoZap)}`, '_blank');
+        }
     }
-
-    }
-
-    
 
     return (
     <div className="contato-container">
