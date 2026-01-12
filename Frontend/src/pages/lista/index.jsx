@@ -1,80 +1,60 @@
-import { useEffect, useState } from 'react'
-import api from '../../services/api'
-import { useNavigate } from 'react-router-dom'
-import './style.css'
+import { useState } from 'react'
+import './style.css' // Certifique-se que o arquivo style.css está na mesma pasta
+import fotoRafa from './rafa.jpg'
 
 function Telainicial() {
     
+    const meuNumeroWhatsApp = '5511990008917'
+    const linkWhatsApp = `https://wa.me/${meuNumeroWhatsApp}?text=Olá, vi seu portfólio e gostaria de um orçamento!`;
 
     return (
-        <>
-          <nav className="navbar navbar-expand-lg navbar-dark" 
-                style={{
-                    backgroundColor: '#1a1a1a', // Fundo escuro
-                    borderBottom: '1px solid #333', // Linha sutil separadora
-                    padding: '15px 20px' 
-                }}>
-            
-                <div className="container-fluid">
+        <div className="home-container">
+            {/* --- NAVBAR --- */}
+            <nav className="navbar">
+                <div className="nav-content">
                     {/* LOGO */}
-                    <a className="navbar-brand" style={{ fontWeight: 'bold', fontSize: '1.4rem' }}>
-                        <span style={{ color: '#0d6efd' }}>🚀</span> Rafa Academy
+                    <a className="navbar-brand">
+                        <span>🚀</span> Rafa Academy
                     </a> 
                     
                     {/* BARRA DE PESQUISA */}
-                    <form className="d-flex" style={{ gap: '10px' }}>
-                        <input 
-                            className="form-control" 
-                            type="search" 
-                            placeholder="Qual aula você procura?" 
-                            style={{
-                                backgroundColor: '#2c2c2c', // Input Cinza Escuro
-                                border: '1px solid #444', 
-                                color: 'white', // Texto branco
-                                borderRadius: '20px' // Borda redondinha
-                            }} 
-                        />
-                        <button 
-                            className="btn btn-primary" 
-                            type="submit"
-                            style={{ borderRadius: '20px', padding: '0 20px' }}
-                        >
-                            Buscar
-                        </button>
-                    </form>
+                    
                 </div>
             </nav>
 
-            <div className="content-padding">
-                <h1>Aprendendo a Desenvolver em Node</h1>
+            {/* --- SEÇÃO SOBRE --- */}
+            <section className="sobre-container">                
+                <div className="sobre-texto">
+                    <h2>Olá, sou Rafael Rodrigues Muniz.</h2>
 
-              
-                <div className="videos-grid">
-                    
+                    <p>Atuo como Analista de Vendas Pleno, onde desenvolvi um olhar analítico para processos de negócios. Atualmente, estou expandindo minha carreira para a área de tecnologia, cursando Análise e Desenvolvimento de Sistemas (ADS).</p>
 
-                    <div className="video-card">
-                        <div className="thumbnail">VÍDEO 1</div>
-                        <p>Aula 01 - Introdução</p>
-                    </div>
-
-                    <div className="video-card">
-                        <div className="thumbnail">VÍDEO 2</div>
-                        <p>Aula 02 - Instalando Node</p>
-                    </div>
-
-                    <div className="video-card">
-                        <div className="thumbnail">VÍDEO 3</div>
-                        <p>Aula 03 - Primeiro Servidor</p>
-                    </div>
-
-                    <div className="video-card">
-                        <div className="thumbnail">VÍDEO 4</div>
-                        <p>Aula 04 - Rotas</p>
-                    </div>
-
+                    <p>Meu foco é unir a visão estratégica de negócios com a capacidade técnica da programação. Utilizo tecnologias como JavaScript, TypeScript e Node.js para criar soluções reais, com ênfase na automação de processos repetitivos.</p>
                 </div>
-            </div>
-        </>
+
+                <div className="sobre-foto">
+                    <img src={fotoRafa} className="foto-perfil" alt="Rafael Muniz"/>
+                </div>
+            </section>
+
+            {/* --- SEÇÃO VENDAS --- */}
+            <section className="vendas-container">                  
+                <div className="vendas-card">
+                    <h1>Transforme visitantes em clientes reais</h1>
+
+                    <p>
+                        Se você precisa de um <strong>Portfólio</strong>, <strong>Site de Vendas</strong> ou 
+                        <strong>Landing Page</strong>, eu posso te ajudar.
+                    </p>
+                    
+                    <p className="chamada-final">Vamos tirar seu projeto do papel?</p>
+                    
+                    <a href={linkWhatsApp} className="btn-whatsapp" target="_blank" rel="noreferrer">
+                        📱 Me chame no WhatsApp
+                    </a>
+                </div>
+            </section>
+        </div>
     )
 }
 

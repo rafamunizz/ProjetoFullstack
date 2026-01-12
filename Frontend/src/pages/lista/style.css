@@ -1,91 +1,177 @@
-/* Estilo geral da página */
-body {
-    background-color: #1F1A38; /* Fundo roxo escuro */
-    color: #ffffff; /* Cor do texto principal */
-    font-family: 'Roboto', Arial, sans-serif; /* Fonte profissional e limpa */
+/* --- RESET GERAL --- */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif; /* Pode mudar para Roboto se quiser */
 }
 
-/* Barra de navegação (Navbar) */
+/* Fundo da página inteira (Igual ao Login) */
+.home-container {
+    background-color: #121214;
+    min-height: 200vh;
+    color: #e1e1e6; /* Cor do texto padrão */
+}
+
+/* --- NAVBAR --- */
 .navbar {
-    background-color: #ffffff !important; /* Força o fundo branco */
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #202024; /* Um pouco mais claro que o fundo */
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+}
+
+.nav-content {
+    max-width: 1100px;
+    margin: 60 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    padding: 0 80px;
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: #1F1A38 !important; /* Cor da marca */
     font-size: 1.5rem;
+    font-weight: bold;
+    color: #e1e1e6;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.form-control {
-    border-radius: 20px 0 0 20px; /* Borda arredondada no input */
-    border: 1px solid #ced4da;
+.navbar-brand span {
+    margin-right: 5px;
 }
 
-.btn-outline-success {
-    border-radius: 0 20px 20px 0; /* Borda arredondada no botão */
-    color: #28a745;
-    border-color: #28a745;
+/* Barra de Pesquisa */
+.search-box {
+    display: flex;
+    gap: 10px;
 }
-.btn-outline-success:hover {
-    background-color: #28a745;
+
+.search-box input {
+    background-color: #121214; /* Input escuro */
+    border: 1px solid #333;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #8257e5; /* Borda roxa ao clicar */
+}
+
+.search-box button {
+    background-color: #8257e5; /* Roxo (Igual botão de Login) */
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.search-box button:hover {
+    background-color: #6f48c9;
+}
+
+/* --- SEÇÃO SOBRE --- */
+.sobre-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    padding: 0 20px;
+}
+
+.sobre-texto {
+    flex: 1;
+}
+
+.sobre-texto h2 {
+    color: #8257e5; /* Título em Roxo */
+    margin-bottom: 20px;
+}
+
+.sobre-texto p {
+    color: #c4c4cc; /* Cinza claro para leitura */
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.sobre-foto img.foto-perfil {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%; /* Redondo */
+    border: 4px solid #8257e5; /* Borda roxa */
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(130, 87, 229, 0.3); /* Brilho roxo atrás */
+}
+
+/* --- SEÇÃO VENDAS --- */
+.vendas-container {
+    background-color: #202024; /* Fundo destacado */
+    padding: 60px 20px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.vendas-card {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.vendas-card h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
     color: white;
 }
 
-/* Espaçamento do conteúdo principal */
-.content-padding {
-    padding: 40px 20px;
+.vendas-card p {
+    font-size: 1.2rem;
+    color: #c4c4cc;
+    margin-bottom: 10px;
 }
 
-h1 {
-    font-size: 2.5rem;
+.vendas-card strong {
+    color: #8257e5; /* Destaque nas palavras chave */
+}
+
+.chamada-final {
+    margin-top: 20px;
     margin-bottom: 30px;
-    font-weight: 700; /* Negrito */
+    font-weight: bold;
 }
 
-/* Grade de vídeos */
-.videos-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Espaço entre os cards */
-    justify-content: flex-start; /* Alinha os cards à esquerda */
-}
-
-/* Card individual do vídeo */
-.video-card {
-    background-color: #0a0a0a; /* Fundo preto do card */
-    border-radius: 12px; /* Bordas arredondadas */
-    overflow: hidden; /* Garante que a imagem não saia da borda */
-    width: 300px; /* Largura fixa para os cards */
-    cursor: pointer; /* Mostra a mãozinha ao passar o mouse */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.video-card:hover {
-    transform: translateY(-5px); /* Efeito de levantar ao passar o mouse */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-}
-
-/* Placeholder da miniatura do vídeo */
-.thumbnail {
-    background-color: #1a1a1a; /* Fundo cinza escuro para o placeholder */
-    height: 170px; /* Altura fixa */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #666;
+/* Botão do WhatsApp */
+.btn-whatsapp {
+    display: inline-block;
+    background-color: #04d361; /* Verde WhatsApp (Marca) */
+    color: #fff;
+    padding: 15px 32px;
+    border-radius: 5px;
+    text-decoration: none;
     font-weight: bold;
     font-size: 1.2rem;
+    transition: 0.2s;
 }
 
-/* Título da aula dentro do card */
-.video-card p {
-    padding: 15px;
-    margin: 0;
-    font-weight: 500;
-    font-size: 1rem;
+.btn-whatsapp:hover {
+    filter: brightness(0.9); /* Escurece levemente ao passar o mouse */
+    transform: scale(1.05); /* Aumenta um pouco */
+}
+
+/* Responsividade (Para celular) */
+@media (max-width: 768px) {
+    .nav-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sobre-container {
+        flex-direction: column-reverse; /* Foto em cima no celular */
+        text-align: center;
+    }
 }
