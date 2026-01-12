@@ -12,3 +12,13 @@ model User {
   name  String?
   senha String? 
 }
+
+model Contato {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  nome String
+  email String
+  orcamento String?
+  mensagem String
+  criadoEm DateTime @default(now())
+
+}

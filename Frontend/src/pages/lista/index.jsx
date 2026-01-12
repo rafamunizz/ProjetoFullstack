@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import './style.css' // Certifique-se que o arquivo style.css está na mesma pasta
 import fotoRafa from './rafa.jpg'
+import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs } from 'react-icons/fa';
+import { SiTypescript, SiTailwindcss } from 'react-icons/si';
+import { Link } from 'react-router-dom';
+
 
 function Telainicial() {
     
@@ -8,6 +12,8 @@ function Telainicial() {
     const linkWhatsApp = `https://wa.me/${meuNumeroWhatsApp}?text=Olá, vi seu portfólio e gostaria de um orçamento!`;
 
     return (
+
+        
         <div className="home-container">
             {/* --- NAVBAR --- */}
             <nav className="navbar">
@@ -16,6 +22,8 @@ function Telainicial() {
                     <a className="navbar-brand">
                         <span>🚀</span> Rafa Academy
                     </a> 
+
+                    <Link to="/contato" className='btn-orcamento'>Pedir Orçamento</Link>
                     
                     {/* BARRA DE PESQUISA */}
                     
@@ -49,7 +57,7 @@ function Telainicial() {
                     
                     <p className="chamada-final">Vamos tirar seu projeto do papel?</p>
                     
-                    <a href={linkWhatsApp} className="btn-whatsapp" target="_blank" rel="noreferrer">
+                    <a href={linkWhatsApp} className="btn-whatsapp" target="_blank" rel="noreferrer" >
                         📱 Me chame no WhatsApp
                     </a>
                 </div>

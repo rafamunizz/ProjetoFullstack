@@ -164,6 +164,44 @@ app.post('/login', async (req, res) => {
         }
     })
 
+app.post('/contato', async (req, res) => {
+    const {nome, email, orcamento, mensagem} = req.body
+
+    if(!nome){
+        return res.status(422).json({message: "Nome é obrigatorio "})
+    }
+
+    if(!email){
+        return res.status(422).json({message: "email é obrigatorio "})
+    }
+
+    if(!orcamento){
+       return  res.status(422).json({message: "orcamento é obrigatorio "})
+    }
+
+    if(!mensagem){
+        return res.status(422).json({message: "Nome é obrigatorio "})
+    }
+
+    try {
+        const dados = await prisma.contato.create({
+            data: {
+            nome,
+            email,
+            orcamento,
+            mensagem
+        }
+        })
+
+        res.status(201).json({mensage: "Dados enviados com sucesso !!", dados})
+        console.log(dados)
+
+    } catch(error){
+        console.log(error);
+        res.status(501).json({message: "Erro no servidor do banco"})
+    }
+})
+
 if (!process.env.VERCEL) {
   app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`)
