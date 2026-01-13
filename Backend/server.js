@@ -1,5 +1,5 @@
 import {  PrismaClient } from "@prisma/client";
-import express, { json } from "express"
+import express, { json, text } from "express"
 import  jwt  from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import "dotenv/config";
@@ -164,6 +164,9 @@ app.post('/login', async (req, res) => {
         }
     })
 
+const TELEGRAM_TOKEN = '8443340775:AAFc7bYMZA1FBCjiLxJuLYnsy2ru8D5bjRk'; // Aquele do BotFather
+const CHAT_ID = '8265226954';
+
 app.post('/contato', async (req, res) => {
     const {nome, email, orcamento, mensagem} = req.body
 
@@ -195,6 +198,28 @@ app.post('/contato', async (req, res) => {
 
         res.status(201).json({mensage: "Dados enviados com sucesso !!", dados})
         console.log(dados)
+
+        const textoParaenviar = `🚀 *NOVO LEAD NO SITE!*
+
+        👤 *Nome:* ${nome}
+        📧 *Email:* ${email}
+        💰 *Orçamento:* R$ ${orcamento}
+        📝 *Mensagem:*
+        ${mensagem}`
+
+        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+        await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: textoParaenviar,
+                parse_mode: 'Markdown'
+            })
+        })
+
+         console.log("Notificação enviada para o Telegram!");
 
     } catch(error){
         console.log(error);
