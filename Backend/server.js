@@ -168,48 +168,36 @@ const TELEGRAM_TOKEN = '8443340775:AAFc7bYMZA1FBCjiLxJuLYnsy2ru8D5bjRk'; // Aque
 const CHAT_ID = '8265226954';
 
 app.post('/contato', async (req, res) => {
-    const {nome, email, orcamento, mensagem} = req.body
+    const { nome, email, orcamento, mensagem } = req.body
 
-    if(!nome){
-        return res.status(422).json({message: "Nome é obrigatorio "})
-    }
-
-    if(!email){
-        return res.status(422).json({message: "email é obrigatorio "})
-    }
-
-    if(!orcamento){
-       return  res.status(422).json({message: "orcamento é obrigatorio "})
-    }
-
-    if(!mensagem){
-        return res.status(422).json({message: "Nome é obrigatorio "})
-    }
+    // Validações
+    if (!nome) return res.status(422).json({ message: "Nome é obrigatório" })
+    if (!email) return res.status(422).json({ message: "Email é obrigatório" })
+    if (!orcamento) return res.status(422).json({ message: "Orçamento é obrigatório" })
+    if (!mensagem) return res.status(422).json({ message: "Mensagem é obrigatória" })
 
     try {
+        // 1. Salva no Banco
         const dados = await prisma.contato.create({
-            data: {
-            nome,
-            email,
-            orcamento,
-            mensagem
-        }
+            data: { nome, email, orcamento, mensagem }
         })
 
-        res.status(201).json({mensage: "Dados enviados com sucesso !!", dados})
-        console.log(dados)
+        // 2. Prepara o Telegram
+        const textoParaenviar = `
+🚀 *NOVO LEAD NO SITE!*
 
-        const textoParaenviar = `🚀 *NOVO LEAD NO SITE!*
+👤 *Nome:* ${nome}
+📧 *Email:* ${email}
+💰 *Orçamento:* R$ ${orcamento}
 
-        👤 *Nome:* ${nome}
-        📧 *Email:* ${email}
-        💰 *Orçamento:* R$ ${orcamento}
-        📝 *Mensagem:*
-        ${mensagem}`
+📝 *Mensagem:*
+${mensagem}
+        `
 
-        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+        // 3. Envia para o Telegram E ESPERA A RESPOSTA
+        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`
 
-        await fetch(url, {
+        const respostaTelegram = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -219,11 +207,21 @@ app.post('/contato', async (req, res) => {
             })
         })
 
-         console.log("Notificação enviada para o Telegram!");
+        // 4. Verificamos se o Telegram aceitou
+        const jsonTelegram = await respostaTelegram.json()
+        console.log("Resposta do Telegram:", jsonTelegram) 
+        // ^^^ OLHE NO SEU TERMINAL O QUE APARECE AQUI ^^^
 
-    } catch(error){
-        console.log(error);
-        res.status(501).json({message: "Erro no servidor do banco"})
+        if (!jsonTelegram.ok) {
+            console.log("ERRO NO TELEGRAM:", jsonTelegram.description)
+        }
+
+        // 5. Só agora responde para o site
+        res.status(201).json({ mensage: "Dados enviados com sucesso !!", dados })
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "Erro no servidor do banco" })
     }
 })
 
